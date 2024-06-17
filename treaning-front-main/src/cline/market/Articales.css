@@ -1,0 +1,63 @@
+#PageUlProduct {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+}
+
+#PageUlCategory {
+    width: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    min-height: 500px;
+    margin: 10px 5%;
+    background-color: white;
+}
+
+
+#PagePayCard {
+    width: 450px;
+    border: 1px solid rgb(226, 233, 241);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 10px 10px 10px 0 rgb(219, 218, 218);
+    padding: 10px 0 30px 0;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.FinishMarketAccordion .accordion-button::after {
+    order: -1;
+    margin-right: 10px;
+}
+
+
+input[type="radio"]:checked+label {
+    color: #198754;
+}
+
+input[type="radio"]:checked {
+    accent-color: #198754;
+}
+
+input[type="radio"].custom-radio:checked {
+    border: 2px solid #198754;
+    accent-color: #198754;
+}
+
+.btnMyOrders :hover{
+    color: #198754;
+    /* transition:5s; */
+}
+
+/* table .table-hover .table-light a {
+    text-decoration: none;
+    color: inherit;
+    display: block; 
+} */

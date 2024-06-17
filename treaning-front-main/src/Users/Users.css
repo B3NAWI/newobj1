@@ -1,0 +1,56 @@
+#allPage {
+    background-color: rgb(235, 235, 235);
+    width: 100%;
+    margin-top: 35px;
+    min-height: 100vh;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#Page {
+    width: 80%;
+    margin: 0 10%;
+    border: 1px solid rgb(226, 233, 241);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 10px 10px 10px 0 rgb(219, 218, 218);
+    padding-bottom: 5%;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#PageResatePassword {
+    width: 40%;
+    margin-left: 30%;
+    border: 1px solid rgb(226, 233, 241);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 10px 10px 10px 0 rgb(219, 218, 218);
+    padding-bottom: 5%;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#H1Login {
+    width: 100%;
+    border-bottom: solid 2px black;
+    padding-bottom: 2%;
+    margin-bottom: 5%;
+}
+
+
+.form-floating {
+    width: 80%;
+}
+
+.errMsgInbut {
+    color: red;
+    font-size: 17px;
+    margin: 5px;
+    display: flex;
+}

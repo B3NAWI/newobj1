@@ -1,0 +1,9 @@
+/* .active {
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+} */
+
+.HederExperienceActive .active {
+    color: rgb(61, 66, 71);
+    font-weight: 600;
+}
