@@ -55,29 +55,29 @@ function GetCategoryMarketCline() {
                             />
                         </Form>
                     </div>
-                    <div style={{ borderTop: "soled 1px black", marginTop: "50px", minHeight: "88vh" }}>
-                        <div id="PageUlCategory">
-                            {data.map((item) =>
-                                <div class="card" style={{ width: "200px", margin: "1%", border: "none" }}>
-                                    <Link to={`/cline/Articales/getArticales/${item.name}`}>
-                                        <div >
-                                            <img
-                                                src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`}
-                                                class="card-img-top"
-                                                style={{ maxHeight: "200px", borderRadius: "10px" }}
-                                                alt="item image"
-                                            />
-                                            <div class="card-body">
-                                                <h5 class="card-title" style={{ textAlign: "center" }}>
-                                                    {item.name}
-                                                </h5>
-                                            </div>
+                    {/* <div style={{ borderTop: "soled 1px black", marginTop: "50px", minHeight: "88vh" }}> */}
+                    <div id="PageUlCategory" style={{ marginTop: "40px", minHeight: "88vh" }}>
+                        {data.map((item) =>
+                            <div class="card" style={{ width: "200px", margin: "1%", border: "none" }}>
+                                <Link to={`/cline/Articales/getArticales/${item.name}`}>
+                                    <div >
+                                        <img
+                                            src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`}
+                                            class="card-img-top"
+                                            style={{ maxHeight: "200px", borderRadius: "10px" }}
+                                            alt="item image"
+                                        />
+                                        <div class="card-body">
+                                            <h5 class="card-title" style={{ textAlign: "center" }}>
+                                                {item.name}
+                                            </h5>
                                         </div>
-                                    </Link>
-                                </div>
-                            )}
-                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
                     </div>
+                    {/* </div> */}
                 </> : <Loading />}
             </div>
         </div >

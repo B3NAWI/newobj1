@@ -38,12 +38,23 @@ const DetalisOrderAdmin = () => {
         Stages.RECEIVED
     ];
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 320);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const isStageCompleted = (stage) => {
-        const currentIndex = stagesArray.indexOf(i18n.language === "ar" ? data?.status.ar:data?.status.he );
+        const currentIndex = stagesArray.indexOf(i18n.language === "ar" ? data?.status.ar : data?.status.he);
         const stageIndex = stagesArray.indexOf(stage);
         return stageIndex <= currentIndex;
     };
-    const nextStageIndex = stagesArray.indexOf(data && i18n.language === "ar" ? data?.status.ar:data?.status.he ) + 1;
+    const nextStageIndex = stagesArray.indexOf(data && i18n.language === "ar" ? data?.status.ar : data?.status.he) + 1;
 
     const BtnDropdownButton = async (status, id) => {
         const LStatus = JSON.parse(status);
@@ -75,7 +86,7 @@ const DetalisOrderAdmin = () => {
 
     return (<>
         <div id="allPage">
-            <div id="Page" style={{ width: "60%", marginLeft: "20%", marginRight: "20%" }}>
+            <div id="Page" style={{ width: isMobile ? "95%" : "60%", marginLeft: isMobile ? "2.5%" : "20%", marginRight: isMobile ? "2.5%" : "20%" }}>
                 {data ?
                     <div style={{ marginTop: "30px", border: "10px", width: "90%" }}>
                         <div style={{ display: "flex", justifyContent: "space-around", textAlign: "start", paddingBottom: "2%" }}>
@@ -112,12 +123,12 @@ const DetalisOrderAdmin = () => {
                         </div>
                         <div style={{ display: 'flex', color: 'red', borderTop: "1px solid #dbdada ", justifyContent: "space-evenly", padding: "2% 0" }}>
                             <div >{t("Orders.Orderdetails.Total Price")} :   {data.totalPrice} {" $  "}</div>
-                            <div >{t("Orders.Payment.Payment")} : {i18n.language == "ar"?  data.payment.ar : data.payment.he} {" "}</div>
+                            <div >{t("Orders.Payment.Payment")} : {i18n.language == "ar" ? data.payment.ar : data.payment.he} {" "}</div>
                         </div>
-                        <div style={{ borderTop: "1px solid #dbdada ", padding: " 2% 0 " }}>{t("Orders.Orderdetails.Receipt")} : {i18n.language == "ar"?data.receipt.ar :data.receipt.a} {" "}</div>
+                        <div style={{ borderTop: "1px solid #dbdada ", padding: " 2% 0 " }}>{t("Orders.Orderdetails.Receipt")} : {i18n.language == "ar" ? data.receipt.ar : data.receipt.a} {" "}</div>
                         <div style={{ borderTop: "1px solid #dbdada ", paddingTop: "2%" }}>
                             <div style={{ textAlign: "start", marginLeft: "20%", marginRight: "20%", paddingBottom: "2px" }}>{t("Orders.Orderdetails.Receipt Address")} :</div>
-                            <div style={{ border: "1px solid ", borderRadius: "5px", width: "60%", margin: "0 20%", textAlign: "right", padding: "2%" }}>
+                            <div style={{ border: "1px solid ", borderRadius: "5px", width: isMobile ? "96%" : "60%", margin: isMobile ? "0 2%" : "0 20%", textAlign: "right", padding: "2%" }}>
                                 <div >
                                     {data.receiptAddress.city} {" "},
                                     {data.receiptAddress.district} {" "}
@@ -138,13 +149,13 @@ const DetalisOrderAdmin = () => {
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: "3%" }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', alignItems: "flex-start" }}>
                                 {stagesArray.map((stage) => (
-                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '0 20px' }} key={stage}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', margin: isMobile ? '0 3px' : '0 20px' }} key={stage}>
                                         <StageCircle stage={stage} completed={isStageCompleted(stage)} text={stage} />
                                     </div>
                                 ))}
                             </div>
                             {nextStageIndex < stagesArray.length && (
-                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '10px', marginRight: "35px" }}>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '10px', marginRight: isMobile ? null : "35px" }}>
                                     <Button variant='success' onClick={() => BtnDropdownButton(JSON.stringify({ ar: data.status.ar, he: data.status.he }), data._id)}>{t("Success")}</Button>
                                 </div>
                             )}

@@ -12,9 +12,11 @@ import { IoLogInOutline } from "react-icons/io5";
 import { RiMailSendLine } from "react-icons/ri";
 import { LoadingBtn } from "../refreshPage/loading";
 import { useTranslation } from "react-i18next";
+import { IoMdMenu } from "react-icons/io";
+import { Dropdown, DropdownButton, NavDropdown } from "react-bootstrap";
 
 function HederExperience() {
-    const { t ,i18n } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [user, setUser] = useState()
     const [password, setPassword] = useState()
     const [errMsg, setErrMsg] = useState()
@@ -23,7 +25,6 @@ function HederExperience() {
     const [dataaForgot, setDataaForgot] = useState()
     const [statuslogin, setStatusLogin] = useState(<> {t("login")}</>)
     const [statusSendEmail, setStatusSendEmail] = useState(<><RiMailSendLine style={{ fontSize: "20px", paddingBottom: "4px" }} />  {t("Send Email")}</>)
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
 
 
     const cookie = new Cookies()
@@ -39,6 +40,17 @@ function HederExperience() {
         setShowLogin(false),
         setErrMsg(null)
     );
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 320);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     useEffect(() => {
         document.body.dir = i18n.dir()
@@ -106,47 +118,72 @@ function HederExperience() {
                 }
             })
     }
+    const handleLink = (Link) => {
+        nav(`${Link}`)
+    }
     useEffect(() => {
         cookie.remove("bearer")
         setErrMsgForgot(null)
     }, [dataaForgot])
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 320);
-        };
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-
     return (<>
         <nav id="MenuBig" style={{ backgroundColor: "white", width: "100%" }}>
-            <div style={{ position: "fixed", width: "100%", top: "0", zIndex: "3", maxHeight: "35px", padding: "0", backgroundColor: "white", boxShadow: "0 0 8px #898989 ", display: "flex", justifyContent: 'space-between' }}>
-                <div className="HederExperienceActive" style={{ display: "flex" }}>
-                    <div style={{ padding: " 2px 2%", backgroundColor: "rgb(25 135 84)", color: "white", height: '35px', fontSize: "21px", fontWeight: "500", width: "100px", textAlign: "center" }} >{t("Menu")}</div>
-                    <NavLink to={"/GetCategoryMarket"} className="custom-button" activeClassName="active-link" ><div>{t("Market")}</div></NavLink>
-                </div>
-                <div style={{ display: 'flex' }}>
-                    
-                    <div style={{ margin: "3px 10px 0 10px" }}>
-                        <Button variant="outline-success" onClick={handleShowLogin} style={{ width: "95px", padding: '0', height: '30px', marginRight: "10px" }}>
-                            {/* <IoLogInOutline style={{ fontSize: "25px", padding: "0 0px 3px 0" }} />  */}
-                            {t("login")}
-                        </Button>
-                        <Button variant="outline-success" onClick={btnSignup} style={{ width: "95px", padding: '0', height: '30px', marginRight: "10px"  }}>
-                            {t("signup")}
-                        </Button>
+            {isMobile ?
+                <div className="App" style={{ width: "100%", position: "fixed", zIndex: "6" }}><div>
+                    <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", width: "100%", position: "fixed" }} >
+                        <div style={{ width: "100%", top: "0", maxHeight: "35px", padding: "0", backgroundColor: "white", boxShadow: "0 0 8px #898989 ", display: "flex", justifyContent: "space-between", position: "fixed" }}>
+                            <header style={{ display: "flex" }}>
+                                <DropdownButton align={"start"} variant="success" style={{ textAlign: "start" }} id="dropdown-basic-button" title={<IoMdMenu style={{ minWidth: "110px" }} />}>
+                                    <Dropdown.Header style={{ textAlign: "center", fontWeight: "600", backgroundColor: "#e9e9e9" }}>Menu</Dropdown.Header>
+                                    <Dropdown.Item onClick={() => handleLink("/GetCategoryMarket")} style={{ textAlign: "start" }} >{t("Market")}</Dropdown.Item>
+                                    <Dropdown.Header style={{ textAlign: "center", fontWeight: "600", backgroundColor: "#e9e9e9" }}>Account</Dropdown.Header>
+                                    <Dropdown.Item onClick={handleShowLogin} style={{ textAlign: "start" }} >{t("login")}</Dropdown.Item>
+                                    <Dropdown.Item onClick={btnSignup} style={{ textAlign: "start" }} >{t("signup")}</Dropdown.Item>
+                                    {/* <NavDropdown id="nav-dropdown-light-example" style={{ textAlign: "center" }} title={i18n.language} menuVariant="light">
+                                        <NavDropdown.Item onClick={() => { BtnLanguge("ar") }} style={{ textAlign: "start" }}>العربية</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => { BtnLanguge("he") }} style={{ textAlign: "start" }}>עִברִית</NavDropdown.Item>
+                                    </NavDropdown> */}
+                                </DropdownButton>
+                            </header>
+                            <div style={{ margin: "0 10px", height: "40px" }}>
+                                <Form.Select style={{ width: "100px", padding: "0 0 0 0 ", height: "30px" }} onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
+                                    {/* <option>en</option> */}
+                                    <option value={"ar"}>العربية</option>
+                                    <option value={"he"}>עִברִית</option>
+                                </Form.Select>
+                            </div>
+                        </div>
                     </div>
-                    <div style={{ display: 'flex' , margin:"0 20px" }}>
-                        <Form.Select style={{ width: "100px", padding:"0 20px 0 0 "}} onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
-                            {/* <option>en</option> */}
-                            <option value={"ar"}>العربية</option>
-                            <option value={"he"}>עִברִית</option>
-                        </Form.Select>
+                </div>
+                </div>
+                :
+                <div style={{ position: "fixed", width: "100%", top: "0", zIndex: "3", maxHeight: "35px", padding: "0", backgroundColor: "white", boxShadow: "0 0 8px #898989 ", display: "flex", justifyContent: 'space-between' }}>
+                    <div className="HederExperienceActive" style={{ display: "flex" }}>
+                        <div style={{ padding: " 2px 2%", backgroundColor: "rgb(25 135 84)", color: "white", height: '35px', fontSize: "21px", fontWeight: "500", width: "100px", textAlign: "center" }} >{t("Menu")}</div>
+                        <NavLink to={"/GetCategoryMarket"} className="custom-button" activeClassName="active-link" ><div>{t("Market")}</div></NavLink>
+                    </div>
+                    <div style={{ display: 'flex' }}>
+
+                        <div style={{ margin: "3px 10px 0 10px" }}>
+                            <Button variant="outline-success" onClick={handleShowLogin} style={{ width: "95px", padding: '0', height: '30px', marginRight: "10px" }}>
+                                {/* <IoLogInOutline style={{ fontSize: "25px", padding: "0 0px 3px 0" }} />  */}
+                                {t("login")}
+                            </Button>
+                            <Button variant="outline-success" onClick={btnSignup} style={{ width: "95px", padding: '0', height: '30px', marginRight: "10px" }}>
+                                {t("signup")}
+                            </Button>
+                        </div>
+                        <div style={{ display: 'flex', margin: "0 20px" }}>
+                            <Form.Select style={{ width: "100px", padding: "0 20px 0 0 " }} onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
+                                {/* <option>en</option> */}
+                                <option value={"ar"}>العربية</option>
+                                <option value={"he"}>עִברִית</option>
+                            </Form.Select>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+
             <Modal show={showLogin} onHide={handleCloseLogin}>
                 <Modal.Header closeButton>
                     <Modal.Title>{t("Login Page")} </Modal.Title>

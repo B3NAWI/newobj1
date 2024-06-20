@@ -57,6 +57,18 @@ const AllOrders = () => {
         }, 800)
         return () => clearTimeout(debounce)
     }, [token, saerch, searchStatus, searchDateOrder, searchPayment, page, limit])
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 320);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     console.log(searchStatus)
     const BtnDetalisOrder = (OrderId) => {
         const order = dataa.find((i) => i._id === OrderId)
@@ -87,7 +99,7 @@ const AllOrders = () => {
 
     return (<>
         <div id="allPage" style={{ display: "flex", padding: "0" }}>
-            <Nav style={{ width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
+            <Nav className="NavDisktop" style={{ width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
                 <Accordion style={{ width: "15%", position: "fixed" }} alwaysOpen >
                     <Accordion.Item eventKey="0" style={{ width: "100%" }} >
                         <Accordion.Header style={{ fontSize: "20px", width: "99%", padding: "2px" }}><span style={{ flexGrow: 1, textAlign: "start" }}> {t("Orders.Payment.Payment")} </span> </Accordion.Header>
@@ -142,7 +154,7 @@ const AllOrders = () => {
                     </Accordion.Item>
                 </Accordion>
             </Nav>
-            <div style={{ width: "85%" }}>
+            <div style={{ width: isMobile ? "100%" : "85%" }}>
                 <div style={{ width: "96%", backgroundColor: "white", margin: "10px 2%", borderRadius: "10px", boxShadow: "5px 0 5px 0 rgb(219, 218, 218)", border: "solid 1px rgb(219, 218, 218)" }}>
                     <div className="d-flex" style={{ width: "50%", marginLeft: "25%", marginTop: "0", marginRight: "25%" }}>
                         <Form.Control
@@ -157,60 +169,106 @@ const AllOrders = () => {
                         <IoSearchSharp style={{ fontSize: "30px", margin: "8px 0 0 0" }} />
                     </div>
                 </div>
-                <div id='Page' style={{ margin: "1% 2% 2% 2%", width: "96%", padding: "0" }}>
-                    {/* <div id='Page' style={{margin:"10px 3%" , width:"94%"}}> */}
-                    {filterData ?
-                        <div style={{ padding: "5px 0 0 0", width: "100%", marginTop: "10px" }}>
-                            <table class="table  table-hover table-light " style={{ width: "100%", fontSize: "20px", backgroundColor: "white", borderRadius: "5px", boxShadow: "2px 2px 5px 0 rgb(219, 218, 218)" }}>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>{t("CreateUser.User")}</th>
-                                        <th>{t("CreateUser.Phone")}</th>
-                                        <th>{t("Orders.Payment.Payment")}</th>
-                                        <th>{t("Orders.Date Order")}</th>
-                                        <th>{t("hedarAdmin.Status")}</th>
-                                        <th >{<TbListDetails />}</th>
-                                    </tr>
-                                </thead>
-                                {filterData.movies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((item, index) => (<>
-                                    <tbody style={{ padding: "0", width: "100%" }} className="table table-hover table-light">
-                                        <tr key={index} style={{ padding: "0", width: "100%" }}>
-                                            <td  >{index + 1}</td>
-                                            <td >{item.UserDetails.name}</td>
-                                            <td >{item.UserDetails.phone}</td>
-                                            <td >{i18n.language == "ar" ? item.payment.ar : item.payment.he}</td>
-                                            <td >{item.DateOrder}</td>
-                                            <td > {orderStatus(item)}</td>
-                                            {/* <td >{i18n.language == "ar" ? item.status.ar :item.status.he}</td> */}
-                                            <td style={{ display: "table-cell", padding: "5px" }} >
-                                                <div style={{ display: "flex", alignItems: "end", padding: "0" }}>
-                                                    <div style={{ width: "100%" }}>
-                                                        <Button
-                                                            variant='success'
-                                                            onClick={() => BtnDetalisOrder(item._id)}
-                                                            style={{ width: "100%" }}
-                                                        >
-                                                            {t("Orders.Order details")}
-                                                        </Button>
+                {isMobile ?
+                    <div id='Page' style={{ margin: "1% 2% 2% 2%", width: "96%", padding: "0" }}>
+                        {/* <div id='Page' style={{margin:"10px 3%" , width:"94%"}}> */}
+                        {filterData ?
+                            <div style={{ padding: "5px 0 0 0", width: "100%", marginTop: "10px" }}>
+                                <table class="table  table-hover table-light " style={{ width: "100%", fontSize: "20px", backgroundColor: "white", borderRadius: "5px", boxShadow: "2px 2px 5px 0 rgb(219, 218, 218)" }}>
+                                    {filterData.movies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((item, index) => (<>
+                                        <tbody style={{ padding: "0", width: "100%" }} className="table table-hover table-light">
+                                            <tr key={index} style={{ display: "flex", flexDirection: "column", borderTop: index + 1 == "1" ? null : "solid 1px black" }}>
+                                                <td ># : {index + 1}</td>
+                                                <td >{t("CreateUser.User")} : {item.UserDetails.name}</td>
+                                                <td >{t("CreateUser.Phone")}{item.UserDetails.phone}</td>
+                                                <td >{t("Orders.Payment.Payment")}{i18n.language == "ar" ? item.payment.ar : item.payment.he}</td>
+                                                <td >{t("Orders.Date Order")}{item.DateOrder}</td>
+                                                <td > {t("hedarAdmin.Status")}{orderStatus(item)}</td>
+                                                {/* <td >{i18n.language == "ar" ? item.status.ar :item.status.he}</td> */}
+                                                <td style={{ display: "table-cell", padding: "5px" }} >
+                                                    <div style={{ display: "flex", alignItems: "end", padding: "0" }}>
+                                                        <div style={{ width: "100%" }}>
+                                                            <Button
+                                                                variant='success'
+                                                                onClick={() => BtnDetalisOrder(item._id)}
+                                                                style={{ width: "100%" }}
+                                                            >
+                                                                {t("Orders.Order details")}
+                                                            </Button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </>))}
-                            </table >
-                            <div style={{ display: 'flex', justifyContent: "flex-end", marginRight: "2%", alignItems: 'baseline' }}>
-                                <Form.Select style={{ width: "80px" }} onChange={(e) => setLimit(e.target.value)}>
-                                    <option value={20}>20</option>
-                                    <option value={30}>30</option>
-                                </Form.Select>
-                                <PaginatedItems total={filterData.total} itemsPerPage={limit} setPage={setPage} />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </>))}
+                                </table >
+                                <div style={{ display: 'flex', justifyContent: "flex-end", marginRight: "2%", alignItems: 'baseline' }}>
+                                    <Form.Select style={{ width: "80px" }} onChange={(e) => setLimit(e.target.value)}>
+                                        <option value={20}>20</option>
+                                        <option value={30}>30</option>
+                                    </Form.Select>
+                                    <PaginatedItems total={filterData.total} itemsPerPage={limit} setPage={setPage} />
+                                </div>
                             </div>
-                        </div>
-                        : <Loading />}
-                    {/* </div> */}
-                </div>
+                            : <Loading />}
+                        {/* </div> */}
+                    </div>
+                    :
+                    <div id='Page' style={{ margin: "1% 2% 2% 2%", width: "96%", padding: "0" }}>
+                        {/* <div id='Page' style={{margin:"10px 3%" , width:"94%"}}> */}
+                        {filterData ?
+                            <div style={{ padding: "5px 0 0 0", width: "100%", marginTop: "10px" }}>
+                                <table class="table  table-hover table-light " style={{ width: "100%", fontSize: "20px", backgroundColor: "white", borderRadius: "5px", boxShadow: "2px 2px 5px 0 rgb(219, 218, 218)" }}>
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>{t("CreateUser.User")}</th>
+                                            <th>{t("CreateUser.Phone")}</th>
+                                            <th>{t("Orders.Payment.Payment")}</th>
+                                            <th>{t("Orders.Date Order")}</th>
+                                            <th>{t("hedarAdmin.Status")}</th>
+                                            <th >{<TbListDetails />}</th>
+                                        </tr>
+                                    </thead>
+                                    {filterData.movies.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map((item, index) => (<>
+                                        <tbody style={{ padding: "0", width: "100%" }} className="table table-hover table-light">
+                                            <tr key={index} style={{ padding: "0", width: "100%" }}>
+                                                <td  >{index + 1}</td>
+                                                <td >{item.UserDetails.name}</td>
+                                                <td >{item.UserDetails.phone}</td>
+                                                <td >{i18n.language == "ar" ? item.payment.ar : item.payment.he}</td>
+                                                <td >{item.DateOrder}</td>
+                                                <td > {orderStatus(item)}</td>
+                                                {/* <td >{i18n.language == "ar" ? item.status.ar :item.status.he}</td> */}
+                                                <td style={{ display: "table-cell", padding: "5px" }} >
+                                                    <div style={{ display: "flex", alignItems: "end", padding: "0" }}>
+                                                        <div style={{ width: "100%" }}>
+                                                            <Button
+                                                                variant='success'
+                                                                onClick={() => BtnDetalisOrder(item._id)}
+                                                                style={{ width: "100%" }}
+                                                            >
+                                                                {t("Orders.Order details")}
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </>))}
+                                </table >
+                                <div style={{ display: 'flex', justifyContent: "flex-end", marginRight: "2%", alignItems: 'baseline' }}>
+                                    <Form.Select style={{ width: "80px" }} onChange={(e) => setLimit(e.target.value)}>
+                                        <option value={20}>20</option>
+                                        <option value={30}>30</option>
+                                    </Form.Select>
+                                    <PaginatedItems total={filterData.total} itemsPerPage={limit} setPage={setPage} />
+                                </div>
+                            </div>
+                            : <Loading />}
+                        {/* </div> */}
+                    </div>
+                }
             </div>
         </div>
     </>)

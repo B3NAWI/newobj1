@@ -261,7 +261,7 @@ function CreateArticales() {
     return (
         <div id="allPage">
             {dataa ? (
-                <div id="Page" style={{ width: "80%" }}>
+                <div id="Page">
                     <div id="H1Login">
                         <h1>{t("hedarAdmin.Create Product")}</h1>
                     </div>

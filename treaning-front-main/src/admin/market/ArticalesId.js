@@ -4,7 +4,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { User } from "../../context/context";
 import "./Articales.css"
 import { Loading } from "../../refreshPage/loading";
-import { useTranslation, initReactI18next } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 function ArticalesIdAdmin() {
     const { t } = useTranslation();
@@ -73,7 +73,7 @@ function ArticalesIdAdmin() {
                                 <span className="visually-hidden">Next</span>
                             </button>
                         </div>
-                        <div style={{ minWidth: "500px" }}>
+                        <div className="liUserDetalse">
                             <li id="liUserId" ><div>• {t("ProductId.name")} : </div>  {dataa.name}</li>
                             <li id="liUserId"><div>• {t("ProductId.title")} : </div>  {dataa.title}</li>
                             <li id="liUserId"><div>• {t("ProductId.information")} : </div> {dataa.information}</li>

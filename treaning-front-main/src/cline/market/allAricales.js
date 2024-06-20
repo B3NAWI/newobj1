@@ -1,8 +1,7 @@
 import axios from "axios"
 import React, { useEffect, useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import "./Articales.css"
-import { Loading } from "../../refreshPage/loading"
 import { Accordion, Button, Form, Nav } from "react-bootstrap";
 import { IoSearchSharp } from "react-icons/io5";
 import { MdPriceChange } from "react-icons/md";
@@ -68,7 +67,7 @@ function AllArticales() {
 
     return (<>
         <div style={{ minHeight: "100vh", marginTop: "35px", display: "flex", backgroundColor: "rgb(235, 235, 235)" }}>
-            <Nav style={{ minHeight: "80vh", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
+            <Nav className="NavDisktop" style={{ minHeight: "80vh", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
                 <Accordion style={{ width: "15%", position: "fixed" }} alwaysOpen >
                     <Accordion.Item className="asdasd" eventKey="0" style={{ width: "99%" }} >
                         <Accordion.Header style={{ fontSize: "20px", width: "99%", padding: "2px" }}>  <span style={{ flexGrow: 1, textAlign: "start"}}>{<MdPriceChange style={{ marginRight: "5px", fontSize: "18px" }} />}{t("Price")}</span>   </Accordion.Header>

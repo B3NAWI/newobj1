@@ -40,6 +40,16 @@ function Home4admin() {
                 console.log("err Get :", err)
             })
     }, [token])
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 320);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const shwfile = (id) => {
         axios.delete(`${process.env.REACT_APP_API_URL}/articales/DeleteCategoryMarket/${id}`, {
@@ -89,7 +99,7 @@ function Home4admin() {
                             {/* <button type="submit" class="btn btn-primary" >Search</button> */}
                         </Form>
                     </div>
-                    <div id="PageUlCategory" style={{ marginTop: "40px" }}>
+                    <div id="PageUlCategory" style={{ marginTop: "40px", zIndex: "1" }}>
                         {data.map((item) => (
                             <div
                                 key={item._id}
@@ -98,7 +108,12 @@ function Home4admin() {
                                 onMouseEnter={() => setHoveredItemId(item._id)}
                                 onMouseLeave={() => setHoveredItemId(null)}
                             >
-                                {hoveredItemId === item._id && (
+                                {isMobile ? (
+                                    <CloseButton
+                                        style={{ position: "absolute", top: 0, left: 0, zIndex: 10 }}
+                                        onClick={() => handleShow(item._id)}
+                                    />
+                                ) : hoveredItemId === item._id && (
                                     <CloseButton
                                         style={{ position: "absolute", top: 0, left: 0, zIndex: 10 }}
                                         onClick={() => handleShow(item._id)}

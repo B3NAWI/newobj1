@@ -69,7 +69,7 @@ function UpDateArticale() {
 
     return (
         <div id="allPage">
-            <div id="Page" style={{ width: "80%" }}>
+            <div id="Page" >
                 <div id="H1Login">
                     <h1>{t("ProductId.Up Date Product")}</h1>
                 </div>

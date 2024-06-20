@@ -32,3 +32,102 @@
 .custom-dropdown-button .dropdown-toggle::after {
     display: none;
 }
+
+
+
+/* heder.css */
+
+/* body {
+    direction: rtl;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    position: fixed;
+    z-index: 3;
+}
+
+.nav-bar {
+    width: 100%;
+    top: 0;
+    max-height: 35px;
+    padding: 0;
+    background-color: white;
+    box-shadow: 0 0 8px #898989;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.unitMenu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 110px;
+    max-height: 35px;
+    background-color: rgb(25, 135, 84);
+}
+
+.custom-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    color: white;
+    background-color: rgb(25, 135, 84);
+    text-decoration: none;
+}
+
+.custom-button.active-link {
+    background-color: #198754;
+}
+
+@media (max-width: 320px) {
+    .nav-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .unitMenu {
+        min-width: 100%;
+    }
+
+    .HederAdmineActive {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .mobile-nav-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background-color: white;
+        box-shadow: 0 0 8px #898989;
+    }
+
+    .mobile-nav-content .custom-button {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+
+    .notifications, .language-select {
+        margin: 10px 0;
+    }
+} */

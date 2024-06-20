@@ -138,5 +138,8 @@
         "Do you really want to delete the address?" :"هل تريد حقا حذف العنوان؟",
         "Payment being made...":"جاري الدفع...",
         "The payment process was successful":" تمت عملية الدفع بنجاح"
-    }
+    },
+    "Please fill out the fields":"الرجاء ملئ الحقول",
+    "Please add a photo":"الرجاء اضافة صورة",
+    "Filter":"الفلتر"
 }

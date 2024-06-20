@@ -1,4 +1,17 @@
-
 .btn-primary {
     color: white;
+}
+
+
+@media screen and (min-width: 0px) and (max-width: 320px) {
+    .card {
+        max-width: 100px;
+    }
+
+    .NavDisktop {
+        display: none !important;
+    }
+    .StyleMobail{
+        width: 100%;
+    }
 }

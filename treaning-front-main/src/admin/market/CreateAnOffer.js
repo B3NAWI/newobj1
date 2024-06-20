@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { User } from "../../context/context";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { useTranslation, initReactI18next } from "react-i18next";
+import { useTranslation } from "react-i18next";
 
 
 const CreateAnOffer = () => {
@@ -60,7 +60,7 @@ const CreateAnOffer = () => {
 
     return (<>
         <div id="allPage">
-            <div id="Page" style={{ width: "80%" }}>
+            <div id="Page">
                 <div id="H1Login">
                     <h1>{t("hedarAdmin.Create Offer")}</h1>
                 </div>

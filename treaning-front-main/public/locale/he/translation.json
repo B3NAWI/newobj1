@@ -137,5 +137,8 @@
         "Do you really want to delete the address?" :"האם אתה באמת רוצה למחוק את הכתובת?",
         "Payment being made...":"התשלום מתבצע...",
         "The payment process was successful":"תהליך התשלום הצליח"
-    }
+    },
+    "Please fill out the fields":"נא למלא את השדות",
+    "Please add a photo":"נא להוסיף תמונה",
+    "Filter":"לְסַנֵן"
 }

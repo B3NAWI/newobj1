@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../../cline/market/Articales.css"
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -15,11 +15,12 @@ function CreateCategoryMarket() {
     const token = usernaw.auth.token
     const nav = useNavigate()
 
-    const [nameeAr, setNameeAr] = useState("");
-    const [nameeHe, setNameeHe] = useState("");
+
+    const [nameeAr, setNameeAr] = useState();
+    const [nameeHe, setNameeHe] = useState();
     const [emgg, setEmg] = useState(null);
     const [formData, setFormData] = useState(new FormData());
-
+    const [errMsg, setErrMsg] = useState()
     function handleFileSelect(event) {
         const files = event.target.files;
         const selectedFiles = []
@@ -38,12 +39,20 @@ function CreateCategoryMarket() {
         setFormData(updatedFormData);
     }
 
+    useEffect(() => {
+
+    }, [btnInsert])
+
     async function btnInsert() {
-        if (!emgg || emgg.length === 0) {
-            console.error("No files selected");
+        if (!nameeAr || !nameeHe) {
+            setErrMsg(t("Please fill out the fields"))
             return;
         }
-
+        if (!emgg || emgg.length === 0) {
+            console.error("No files selected");
+            setErrMsg(t("Please add a photo"))
+            return;
+        }
         await axios.post(`${process.env.REACT_APP_API_URL}/articales/CreateCategoryMarket`, formData, {
             headers: {
                 Authorization: "Bearer " + token,
@@ -65,7 +74,7 @@ function CreateCategoryMarket() {
 
     return (
         <div id="allPage">
-            <div id="Page" style={{ width: "80%" }}>
+            <div id="Page">
                 <div id="H1Login">
                     <h1>{t("hedarAdmin.Create Category")}</h1>
                 </div>
@@ -73,10 +82,11 @@ function CreateCategoryMarket() {
                 <div style={{ width: "80%", display: "flex" }}>
                     <div class="mb-3" style={{ width: "100%" }}>
                         <label for="exampleFormControlInput1" class="form-label">{t("Category Market Name")}</label>
-                        <input type="text" class="form-control" id="exampleFormControlInput1" onChange={e => setNameeAr(e.target.value)} placeholder={t("بالعربية")} />
-                        <input type="text" style={{marginTop:"5px"}} class="form-control" id="exampleFormControlInput1" onChange={e => setNameeHe(e.target.value)} placeholder={t("בעברית")} />
+                        <input type="text" class="form-control" id="exampleFormControlInput1" onChange={e => setNameeAr(e.target.value)} placeholder={t("بالعربية")} required />
+                        <input type="text" style={{ marginTop: "5px" }} class="form-control" id="exampleFormControlInput1" onChange={e => setNameeHe(e.target.value)} placeholder={t("בעברית")} required />
                     </div>
                 </div>
+                <div style={{ color: 'red' }}>{errMsg}</div>
                 <div class="form-floating mb-3">
                     <input type="file" class="form-control" id="floatingInputNumber" onChange={(e) => handleFileSelect(e)} placeholder="name@example.com" />
                     <label for="floatingInputNumber">{t("ProductId.emg")}</label>

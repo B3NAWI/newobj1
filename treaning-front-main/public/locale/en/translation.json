@@ -137,5 +137,9 @@
         "Do you really want to delete the address?" :"Do you really want to delete the address?",
         "Payment being made...":"Payment being made...",
         "The payment process was successful":"The payment process was successful"
-    }
+    },
+    "Please fill out the fields":"Please fill out the fields",
+    "Please add a photo":"Please add a photo",
+    "Filter":"Filter"
+
 }
