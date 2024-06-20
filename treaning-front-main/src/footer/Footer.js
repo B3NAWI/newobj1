@@ -15,7 +15,7 @@ function Footer() {
                 </footer>
 
                 <footer class="w3-container" style={{ backgroundColor: "#198754", color: "white" }}>
-                    <p>Powered by <a target="_blank">belal</a></p>
+                    <p>Powered by <a target="_blank">HLDSH TECH</a></p>
                 </footer>
             </div>
         </div>

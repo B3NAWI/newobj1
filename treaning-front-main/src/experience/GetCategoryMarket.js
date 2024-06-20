@@ -12,7 +12,7 @@ function GetCategoryMarket() {
     const [dataa, setDataa] = useState()
     const { t, i18n } = useTranslation();
     const cookie = new Cookies()
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
     const lng = cookie.get("i18next") || "en"
 
@@ -26,7 +26,7 @@ function GetCategoryMarket() {
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 320);
+            setIsMobile(window.innerWidth <= 500);
         };
 
         window.addEventListener('resize', handleResize);

@@ -7,6 +7,7 @@ import { IoSearchSharp } from "react-icons/io5";
 import PaginatedItems from "../../components/pagination";
 import { useTranslation } from "react-i18next";
 import { IoFilterSharp } from "react-icons/io5";
+import { ModalProduct } from "../../components/MsgComponent";
 
 
 function CategoryArticale() {
@@ -16,6 +17,7 @@ function CategoryArticale() {
     const [search, setSearch] = useState("")
     const [priceCategory, setPriceCategory] = useState("")
     const [open, setOpen] = useState(false)
+    const [show , setShow] = useState(false)
 
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(20)
@@ -40,11 +42,11 @@ function CategoryArticale() {
         setOpen(false)
     }
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 320);
+            setIsMobile(window.innerWidth <= 500);
         };
 
         window.addEventListener('resize', handleResize);
@@ -61,6 +63,7 @@ function CategoryArticale() {
         number: Product.number
     })) || [];
 
+    console.log(show)
     return (<>
         <div style={{ borderTop: "soled 1px black", marginTop: "35px", display: "flex", backgroundColor: "rgb(235, 235, 235)" }}>
             <Nav className="NavDisktop" style={{ minHeight: "500px", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
@@ -106,7 +109,8 @@ function CategoryArticale() {
                         {data.map((item) =>
                             <Link
                                 key={item._id}
-                                to={`/admin/market/getArticales/${item._id}`}
+                                // to={`/admin/market/getArticales/${item._id}`}
+                                onClick={()=>{setShow({show:true , dataa:item})}}
                                 state={{ dataa: item }}
                                 style={{ margin: "1%" }}
                             >
@@ -132,6 +136,7 @@ function CategoryArticale() {
                     </div>
                 </div>
             </div>
+            <ModalProduct show={show.show} handleClose={()=>setShow(false)} dataa={show.dataa} />
             <Offcanvas i18nIsDynamicList={true} show={open} onHide={CloseFilter} placement="end"style={{ width: '150px', height: '100%' }}>
                 <Offcanvas.Header closeButton>
                     {/* <Offcanvas.Title> asd</Offcanvas.Title> */}

@@ -39,15 +39,17 @@
     width: 500px;
 }
 
-@media screen and (max-width:320px) {
-    #Page{
+@media screen and (max-width:500px) {
+    #Page {
         width: 95%;
         margin: 0 2.5%;
     }
+
     .liUserDetalse {
         width: 200px;
     }
-    .carousel-item{
-        margin-top:10px ;
+
+    .carousel-item {
+        margin-top: 10px;
     }
 }

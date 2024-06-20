@@ -173,6 +173,7 @@ function CreateArticales() {
     const [numberr, setNumberr] = useState("");
     const [emg, setEmg] = useState(null);
     const [formData, setFormData] = useState(new FormData());
+    const [errMsg, setErrMsg] = useState()
 
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/articales/GetCategoryMarket`, {
@@ -218,8 +219,12 @@ function CreateArticales() {
     }
 
     async function btnInsert() {
+        if (!nameeAr || !nameeHe || !titleeAr || !titleeHe || !informationnAr || !informationnHe || !pricee || !numberr) {
+            setErrMsg(t("Please fill out the fields"))
+            return;
+        }
         if (!emg || emg.length === 0) {
-            console.error("No files selected");
+            setErrMsg(t("Please add a photo"))
             return;
         }
 
@@ -304,7 +309,7 @@ function CreateArticales() {
                         <input type="file" className="form-control" id="floatingInputNumber" onChange={(e) => handleFileSelect(e)} multiple />
                         <label htmlFor="floatingInputNumber">{t("ProductId.emg")}</label>
                     </div>
-
+                    <div style={{ color: "red" ,margin:"10px" , fontSize:"16px"}}>{errMsg}</div>
                     <div className="col-12">
                         <button type="submit" className="btn btn-success" onClick={btnInsert}>{t("hedarAdmin.Create Product")}</button>
                     </div>

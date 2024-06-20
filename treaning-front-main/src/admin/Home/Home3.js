@@ -58,6 +58,16 @@ function Home3admin() {
                 }
             })
     }
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const btnActiveUser = () => {
         if (dataa.active === "true") {
@@ -110,28 +120,29 @@ function Home3admin() {
     return (
         <div>
             <div id="allPage">
-                <ul id="Page">
-                    {dataa.user ?
-                        <div style={{ width: "80%" }}>
-                            <div id="H1Login">
-                                <h1>{t("Account Information")}</h1>
-                            </div>
-                            <li id="liUserId"><div>• {t("CreateUser.User")} : </div>{dataa.user}.</li>
-                            <li id="liUserId"><div>• {t("Home2.Email")} : </div>{dataa.email}.</li>
-                            <li id="liUserId"><div>• {t("CreateUser.Phone")} : </div>{dataa.phone}.</li>
-                            <li id="liUserId"><div>• {t("Country")} : </div>{dataa.select}.</li>
-                            <li id="liUserId"><div>• {t("CreateUser.Date")} : </div>{dataa.date}.</li>
-                            <div style={{ borderBottom: "1px solid #c5c2c2 ", textAlign: 'center', fontSize: "30px", width: "90%" }}>{t("Edit Account")}</div>
-                            <div style={{ width: "100%", display: "flex", paddingBottom: "2%", marginTop: "2%" }}>
-                                <li style={{ justifyContent: "center" }} id="liUserId"><div> {t("Home2.Role")} : </div>{dataa.role}. <button type="submit" style={{ marginLeft: "5%" }} class="btn btn-success" onClick={btnRoleUser}> {dataa.role == "user" ? "admin" : "user"}</button></li>
-                                <li id="liUserId"><div> {t("Home2.Activity")} : </div>{dataa.active}. <button type="submit" style={{ marginLeft: "5%" }} class="btn btn-success" onClick={btnActiveUser}> {dataa.active == "true" ? "false" : "true"}</button></li>
-                            </div>
-
-                            <div class="col-12" style={{ display: "flex", justifyContent: "center", paddingTop: "2%", borderTop: "1px solid #c5c2c2", width: "90%" }}>
-                                <button type="submit" class="btn btn-outline-success" onClick={UpDateUser}> {t("UpDate User")}</button>
-                                <button type="submit" style={{ margin: "0 2%" }} class="btn btn-outline-danger" onClick={btndelete}> {t("Delete User")}</button>
-                            </div>
+                <ul id="Page" style={{ padding: "10px" }}>
+                    {dataa.user ? <>
+                        {/* <div style={{ width: "80%" }}> */}
+                        <div id="H1Login">
+                            <h1>{t("Account Information")}</h1>
                         </div>
+                        <li id="liUserId"><div>• {t("CreateUser.User")} : </div>{dataa.user}.</li>
+                        <li id="liUserId"><div>• {t("Home2.Email")} : </div>{dataa.email}.</li>
+                        <li id="liUserId"><div>• {t("CreateUser.Phone")} : </div>{dataa.phone}.</li>
+                        <li id="liUserId"><div>• {t("Country")} : </div>{dataa.select}.</li>
+                        <li id="liUserId"><div>• {t("CreateUser.Date")} : </div>{dataa.date}.</li>
+                        <div style={{ borderBottom: "1px solid #c5c2c2 ", textAlign: 'center', fontSize: "30px", width: "90%" }}>{t("Edit Account")}</div>
+                        <div style={{ width: "100%", display: "flex", paddingBottom: "2%", marginTop: "2%", flexDirection: "column" }}>
+                            <li style={{ justifyContent:isMobile ?"space-evenly": "center",gap:"10px", display:isMobile ?"flex":null }} id="liUserId"><div> {t("Home2.Role")} : </div>{dataa.role}. <button type="submit" style={{ marginLeft: "5%" }} class="btn btn-success" onClick={btnRoleUser}> {dataa.role == "user" ? "admin" : "user"}</button></li>
+                            <li style={{ justifyContent: isMobile ? "space-evenly" : "center", gap:"10px" }} id="liUserId"><div> {t("Home2.Activity")} : </div>{dataa.active}. <button type="submit" style={{ marginLeft: "5%" }} class="btn btn-success" onClick={btnActiveUser}> {dataa.active == "true" ? "false" : "true"}</button></li>
+                        </div>
+
+                        <div class="col-12" style={{ display: "flex", justifyContent: "center", paddingTop: "2%", borderTop: "1px solid #c5c2c2", width: "90%" }}>
+                            <button type="submit" class="btn btn-outline-success" onClick={UpDateUser}> {t("UpDate User")}</button>
+                            <button type="submit" style={{ margin: "0 2%" }} class="btn btn-outline-danger" onClick={btndelete}> {t("Delete User")}</button>
+                        </div>
+                        {/* </div> */}
+                    </>
                         : <Loading />}
                 </ul>
             </div>

@@ -22,6 +22,17 @@ function ChangePassword() {
         setErr(null)
     }, [show])
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const data = { oldPassword: oldPassword, newPassword: newPassword, conNewPassword: conNewPassword }
 
     const btnChangePassword = async () => {
@@ -43,9 +54,9 @@ function ChangePassword() {
     return (
         <>
             <div id="allPage">
-                <div id="Page" style={{width:"50%" , margin:"0 25%"}}>
-                    <div id="H1Login" style={{width:"90%"}}>
-                        <h1>{t("hedarAdmin.Change Password")}</h1>
+                <div id="Page" style={{ width:isMobile?"95%" :"50%", margin:isMobile? "0 2.5": "0 25%" }}>
+                    <div id="H1Login" style={{ width: "90%" }}>
+                        {isMobile?<h2 style={{fontSize:"40px"}}>{t("hedarAdmin.Change Password")}</h2> : <h1>{t("hedarAdmin.Change Password")}</h1>}
                     </div>
                     <div id="errMsg" style={{ color: "red" }} dangerouslySetInnerHTML={{
                         __html: err ? err.errors.map(error => error.msg).join("<br>") : ''

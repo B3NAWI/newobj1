@@ -55,7 +55,7 @@ const MyAccount = () => {
                                 <h1>{t("Account Information")}</h1>
                             </div>
                             <li id="liUserId"><div>• {t("CreateUser.User")} : </div>{dataa.user}.</li>
-                            <li id="liUserId" style={{ display: 'flex', justifyContent: '' }}><div>
+                            <li id="liUserId" style={{ display: 'flex' , overflowX:"auto" , maxWidth:"320px",flexDirection:'column' ,alignItems:"flex-start"}}><div>
                                 • {t("Email address")} : </div><div>{dataa.email}.</div>
                                 <div style={{ marginLeft: "auto", marginRight: "15%" }}>
                                     {dataa.verifyEmail == "true" ? <>{t("Home2.verify")} {t("true")}</>

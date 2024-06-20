@@ -1,6 +1,6 @@
 import "./Users.css";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
@@ -79,9 +79,20 @@ function CreateUser() {
         }
     }
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
         <div id="allPage">
-            <div id="Page" style={{ width: "60%", marginLeft: "20%" , marginRight:"20%" }}>
+            <div id="Page" style={{ width:isMobile?"95%": "60%", margin:isMobile? "0 2.5%":"0 20%" }}>
                 <div id="H1Login" style={{width:"90%"}}>
                     <h1>{t("signup")}</h1>
                 </div>

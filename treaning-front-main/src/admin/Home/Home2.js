@@ -60,11 +60,11 @@ function Home2admin() {
             .catch((err) => console.log("err 1 : ", err))
     }
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 320);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
     useEffect(() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 320);
+            setIsMobile(window.innerWidth <= 500);
         };
 
         window.addEventListener('resize', handleResize);
