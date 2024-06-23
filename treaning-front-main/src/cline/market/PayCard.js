@@ -43,7 +43,16 @@ const PayCard = () => {
             setDisabledBtnPay(true)
         }
     }
-    
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     const GetProduct = (async () => {
         await axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetArticales`)
             .then((doc) => setDataaArticales(doc.data))
@@ -116,7 +125,7 @@ const PayCard = () => {
 
     return (<>
         <div id="allPage" style={{ display: "flex", flexDirection: "column", flexWrap: "wrap", alignContent: "center" }}>
-            <div className="ms-auto fw-bold fs-5" style={{ textAlign: "center", width: "450px", backgroundColor: "white", margin: "10px 0", borderRadius: "20px", boxShadow: " 5px 5px 5px 0 rgb(219, 218, 218)", height: "40px", paddingTop: "8px" }}>
+            <div className="ms-auto fw-bold fs-5" style={{ textAlign: "center", width:isMobile?"95%": "450px", backgroundColor: "white", margin: "10px 0", borderRadius: "20px", boxShadow: " 5px 5px 5px 0 rgb(219, 218, 218)", height: "40px", paddingTop: "8px" }}>
                 {t("Total")}{" "}
                 {cartItems.reduce((total, cartitem) => {
                     const item = dataaArticales && dataaArticales.find((i) => i._id === cartitem.id)

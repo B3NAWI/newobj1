@@ -110,7 +110,7 @@ function CategoryArticale() {
                             <Link
                                 key={item._id}
                                 // to={`/admin/market/getArticales/${item._id}`}
-                                onClick={()=>{setShow({show:true , dataa:item})}}
+                                onClick={()=>{setShow({show:true , dataa:item , role:"admin"})}}
                                 state={{ dataa: item }}
                                 style={{ margin: "1%" }}
                             >
@@ -136,7 +136,7 @@ function CategoryArticale() {
                     </div>
                 </div>
             </div>
-            <ModalProduct show={show.show} handleClose={()=>setShow(false)} dataa={show.dataa} />
+            <ModalProduct show={show.show} handleClose={()=>setShow(false)} dataa={show.dataa} role={show.role} />
             <Offcanvas i18nIsDynamicList={true} show={open} onHide={CloseFilter} placement="end"style={{ width: '150px', height: '100%' }}>
                 <Offcanvas.Header closeButton>
                     {/* <Offcanvas.Title> asd</Offcanvas.Title> */}

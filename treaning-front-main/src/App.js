@@ -46,7 +46,7 @@ function App() {
       <Routes>
         <Route path="/" element={<OutletExperience />} >
           <Route path="/" element={<GetCategoryMarket />} />
-          <Route path="/GetCategoryMarket" element={<GetCategoryMarket />} />
+          {/* <Route path="/GetCategoryMarket" element={<GetCategoryMarket />} /> */}
           <Route path="/GetCategoryMarket/:category" element={<Market />} />
           <Route path="/GetArticaleid/:id" element={<GetArticaleid />} />
           <Route path="/CreateUser" element={<CreateUser />} />

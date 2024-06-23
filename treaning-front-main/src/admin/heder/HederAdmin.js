@@ -84,7 +84,7 @@ function HederAdmin() {
             await cookie.remove("bearer")
             await cookie.remove("refreshToken")
             await usernaw.setAuth({ userDetals: "", token: "" })
-            nav("/GetCategoryMarket")
+            nav("/")
         })
             .catch((err) => {
                 console.log("err : ", err)
@@ -168,7 +168,7 @@ function HederAdmin() {
                     <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", width: "100%", position: "fixed" }} >
                         <div style={{ width: "100%", top: "0", maxHeight: "35px", padding: "0", backgroundColor: "white", boxShadow: "0 0 8px #898989 ", display: "flex", justifyContent: "space-between", position: "fixed" }}>
                             <header style={{ display: "flex" }}>
-                                <DropdownButton align={"start"} variant="success" style={{ textAlign: "start" }} id="dropdown-basic-button" title={<IoMdMenu style={{ minWidth: "30px" }} />}>
+                                <DropdownButton align={"start"} variant="success" style={{ textAlign: "start" }} id="dropdown-basic-button" title={<IoMdMenu style={{ minWidth: "110px" }} />}>
                                     <Dropdown.Header style={{ textAlign: "center", fontWeight: "600", backgroundColor: "#e9e9e9" }}>Menu</Dropdown.Header>
                                     <Dropdown.Item onClick={() => handleLink("/admin/Home/Home2")} style={{ textAlign: "start" }} >{t("Users")}</Dropdown.Item>
                                     <Dropdown.Item onClick={() => handleLink("/admin/Home/Home4")} style={{ textAlign: "start" }} >{t("Market")}</Dropdown.Item>

@@ -8,7 +8,7 @@ function OutletExperience() {
             <HederExperience />
             <Outlet />
             {/* <SupportIcon /> */}
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 }

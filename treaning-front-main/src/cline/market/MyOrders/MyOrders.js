@@ -24,7 +24,17 @@ const MyOrders = () => {
     const end = Number(start) + Number(limit)
     // const final = dataa && dataa.slice(start, end)
 
-    console.log(dataa && dataa)
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const postData = { page, limit }
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetOrders/${params.UserId}`, { params: postData })
@@ -56,19 +66,6 @@ const MyOrders = () => {
             return <span style={{ color: "green" }}>{t("Orders.Status.received")}</span>
         }
     }
-    // const orderStatusش = () => {
-    //     if (Order.status.ar === "جديد") {
-    //         return <span style={{ color: "red" }}>{t("Orders.Status.ok")}</span>;
-    //     } else if (Order.status.ar === "تم المشاهدة") {
-    //         return <span style={{ color: "red" }}>{t("Orders.Status.ok")}</span>;
-    //     } else if (Order.status.ar === "قيد التجهيز") {
-    //         return <span style={{ color: "red" }}>{t("Orders.Status.in preparation")}</span>;
-    //     } else if (Order.status.ar === "في الطريق") {
-    //         return <span style={{ color: "red" }}>{t("Orders.Status.in the way")}</span>;
-    //     } else if (Order.status.ar === "تم التسليم") {
-    //         return <span style={{ color: "green" }}>{t("Orders.Status.received")}</span>;
-    //     }
-    // };
 
     return (<>
         <div id="allPage">
@@ -96,7 +93,7 @@ const MyOrders = () => {
                                         <td >{orderStatus(item)} </td>
                                         <td style={{ display: "table-cell", padding: "0 1% 0 1%", width: "20%" }} >
                                             <div style={{ display: "flex", alignItems: "end", padding: "0", alignItems: "center" }}>
-                                                <div className="btnMyOrders" style={{ paddingLeft: "0", padding: "0", width: "20%" }}>
+                                                {isMobile?null: <div className="btnMyOrders" style={{ paddingLeft: "0", padding: "0", width: "20%" }}>
                                                     <Button
                                                         onClick={() => BtnReOrder(item)}
                                                         title={t("Orders.Reorder")}
@@ -104,8 +101,8 @@ const MyOrders = () => {
                                                     >
                                                         <MdOutlineRestartAlt />
                                                     </Button>
-                                                </div>
-                                                <div style={{ width: "80%", padding: "3px 0" }}>
+                                                </div>}
+                                                <div style={{ width:isMobile?"100%": "80%", padding: "3px 0" }}>
                                                     <Button
                                                         variant='success'
                                                         onClick={() => BtnDetalisOrder(item)}

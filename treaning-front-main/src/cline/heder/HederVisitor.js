@@ -6,16 +6,16 @@ import { User } from "../../context/context";
 import React, { useContext, useEffect, useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Badge from 'react-bootstrap/Badge';
-import { isExpired, decodeToken } from "react-jwt";
+import { isExpired } from "react-jwt";
 import { useShoppingCart } from "../../context/shoppingCartContext";
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import { Button, Form } from "react-bootstrap";
+import { Button, ButtonGroup, Form } from "react-bootstrap";
 import i18n from "i18next"
 import { useTranslation } from "react-i18next";
 import { IoMdMenu } from "react-icons/io";
-
+import { TbShoppingBag } from "react-icons/tb";
+import img1 from "../../file/images.png"
 
 
 function HederVisitor() {
@@ -90,7 +90,7 @@ function HederVisitor() {
             await localStorage.removeItem("shopping-cart")
             removeAllCart()
             await usernaw.setAuth({ userDetals: "", token: "" })
-            nav("/GetCategoryMarket")
+            nav("/")
         })
 
             .catch((err) => console.log("err : ", err))
@@ -117,14 +117,37 @@ function HederVisitor() {
                                     <Dropdown.Item onClick={btnChangePassword} style={{ textAlign: "start" }} eventKey="2">{t("hedarAdmin.Change Password")}</Dropdown.Item>
                                     <Dropdown.Divider />
                                     <Dropdown.Item onClick={btnLogout} style={{ color: 'red', textAlign: "start" }} eventKey="4">{t("Logout")}</Dropdown.Item>
-                                    {/* <NavDropdown id="nav-dropdown-light-example" style={{ textAlign: "center" }} title={i18n.language} menuVariant="light">
-                                    <NavDropdown.Item onClick={() => { BtnLanguge("ar") }} style={{ textAlign: "start" }}>العربية</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={() => { BtnLanguge("he") }} style={{ textAlign: "start" }}>עִברִית</NavDropdown.Item>
-                                </NavDropdown> */}
                                 </DropdownButton>
                             </header>
-                            <div style={{ margin: "0 10px", height: "40px" }}>
-                                <Form.Select style={{ width: "100px", padding: "0 0 0 0 ", height: "30px" }} onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
+
+                            <div style={{ display: "flex", margin: "0 10px", height: "40px" }}>
+                                <div style={{ position: "relative", margin: "2px 20px" }}>
+                                    <Button variant="success" id="btnLogout" style={{ padding: "2px 0 4px 0", width: "50px", margin: "0 0 2px 0" }} onClick={() => openCart()} >
+                                        <FaShoppingCart style={{ paddingBottom: "2px", fontSize: "20px" }} />
+                                        <span className="visually-hidden">unread messages</span>
+                                    </Button>
+                                    {cartQuantity > 0 && (
+                                        <Badge
+                                            bg="red"
+                                            style={{
+                                                backgroundColor: 'red',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                width: '20px',
+                                                height: '20px',
+                                                borderRadius: '50%',
+                                                position: 'absolute',
+                                                top: '0',
+                                                right: '0',
+                                                transform: 'translate(50%, -25%)'
+                                            }}
+                                        >
+                                            {cartQuantity}
+                                        </Badge>
+                                    )}
+                                </div>
+                                <Form.Select style={{ width: "100px", padding: "0 0 0 0 ", height: "30px", margin: "2px 0" }} onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
                                     {/* <option>en</option> */}
                                     <option value={"ar"}>العربية</option>
                                     <option value={"he"}>עִברִית</option>
@@ -135,20 +158,20 @@ function HederVisitor() {
                 </div>
                 </div>
                 :
-                <div style={{ position: "fixed", width: "100%", top: "0", zIndex: "3", maxHeight: "35px", padding: "0", backgroundColor: "white", boxShadow: "0 0 8px #898989 " }}>
-                    <div className="HederExperienceActive" style={{ display: "flex", justifyContent: "space-between" }}>
-                        <div style={{ display: "flex" }}>
-                            <div className="unitMenu " style={{ display: "flex", alignItems: "center", justifyContent: "center", minWidth: "110px", maxHeight: "35px", backgroundColor: "rgb(25 135 84)" }}>
+                <div style={{ display: "flex", justifyContent: "center", position: "fixed", width: "100%", top: "0", zIndex: "3", minHeight: "64px", maxHeight: "64px", padding: "0", backgroundColor: "white", boxShadow: "0 0 8px #898989 " }}>
+                    <div className="HederExperienceActive" style={{ width: "100%", padding: "0 30px", maxWidth: "1440px", minHeight: "64px", display: "flex", alignItems: 'center', justifyContent: "space-between" }}>
+                        <div style={{ minHeight: "64px", display: "flex", alignItems: 'center' }}>
+                            <div className="unitMenu " style={{backgroundColor:"white", color: "#ea004b",display: "flex", alignItems: "center", justifyContent: "center", minWidth: "110px",minHeight: "64px", maxHeight: "64px" }}>
                                 <DropdownButton
-                                    as={ButtonGroup}
+                                    // as={ButtonGroup}
                                     size="sm"
-                                    variant="success"
+                                    variant="liht"
+                                    style={{backgroundColor:"white", minWidth: "88px" }}
                                     title={
-                                        <span style={{ marginRight: "1px" }}>
-                                            <i className="fa fa-user"></i> {UserName}
+                                        <span style={{color: "#ea004b",padding:"0 4px" }}>
+                                            <i className="fa fa-user" style={{fontSize:"20px",color: "#ea004b",padding:"0 4px"}}></i> {UserName}
                                         </span>
                                     }
-                                    style={{ color: "rgb(25 135 84)", minWidth: "88px" }}
                                 >
                                     <Dropdown.Item onClick={btnMyAccount} style={{ textAlign: "start" }} eventKey="1">{t("hedarAdmin.my Account")}</Dropdown.Item>
                                     <Dropdown.Item onClick={btnChangePassword} style={{ textAlign: "start" }} eventKey="2">{t("hedarAdmin.Change Password")}</Dropdown.Item>
@@ -156,13 +179,13 @@ function HederVisitor() {
                                     <Dropdown.Item onClick={btnLogout} style={{ color: 'red', textAlign: "start" }} eventKey="4">{t("Logout")}</Dropdown.Item>
                                 </DropdownButton>
                             </div>
-                            <div style={{ display: "flex" }}>
+                            <div style={{ display: "flex", alignItems: 'center' }}>
                                 <NavLink to={"/cline/Articales/GetCategoryMarketCline"} className="custom-button" ><div>{t("Market")}</div></NavLink>
                                 <NavLink to={`/cline/Articales/MyOrders/${UserId}`} className="custom-button" ><div>{t("My Orders")}</div></NavLink>
                             </div>
                         </div>
-                        <div style={{ display: "flex", alignItems: "baseline" }}>
-                            <div style={{ position: "relative", margin: "0 20px" }}>
+                        <div style={{ display: "flex", alignItems: 'center' }}>
+                            {/* <div style={{ position: "relative", margin: "0 20px" }}>
                                 <Button variant="success" id="btnLogout" style={{ padding: "2px 0 4px 0", width: "50px", margin: "0 0 2px 0" }} onClick={() => openCart()} >
                                     <FaShoppingCart style={{ paddingBottom: "2px", fontSize: "20px" }} />
                                     <span className="visually-hidden">unread messages</span>
@@ -187,14 +210,25 @@ function HederVisitor() {
                                         {cartQuantity}
                                     </Badge>
                                 )}
-                            </div>
+                            </div> */}
                             <div style={{ display: 'flex', margin: "0 20px" }}>
-                                <Form.Select style={{ width: "100px", padding: "0 20px 0 0 ", height: "30px" }} onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
-                                    <option>en</option>
-                                    <option value={"ar"}>العربية</option>
-                                    <option value={"he"}>עִברִית</option>
+                                <Form.Select style={{
+                                    paddingLeft: "40px",
+                                    paddingRight: "20px",
+                                    width: "80px",
+                                    height: "35px",
+                                    appearance: "none",
+                                    background: `url(${img1}) no-repeat 10px center`,
+                                    backgroundSize: "30px 30px, 100%",
+                                    backgroundColor: "#ffffff",
+                                    textAlign: "center"
+                                }} className="language-selector" onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
+                                    {/* <option>en</option> */}
+                                    <option value={"ar"}>AR</option>
+                                    <option value={"he"}>HE</option>
                                 </Form.Select>
                             </div>
+                            <Button variant="outline-liht" className="Button-hedear" onClick={() => openCart()}>{<TbShoppingBag style={{ fontSize: "25px", color: "#ea004b" }} />} </Button>
                         </div>
                     </div>
                 </div>

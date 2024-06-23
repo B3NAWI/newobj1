@@ -1,9 +1,55 @@
-/* .active {
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-} */
 
 .HederExperienceActive .active {
     color: rgb(61, 66, 71);
     font-weight: 600;
 }
+
+.btn-new-style {
+    width: 95px;
+    color: #ea004b;
+    border: #ea004b 1px solid;
+    padding: 0;
+    height: 30px;
+    margin-right: 10px;
+    transform-origin: center center;
+    transition: transform 0.1s;
+}
+
+.btn-new-style:hover {
+    border: #ea004b 1px solid;
+    color: #ea004b;
+    padding-bottom: 2px;
+    background-color: #ffe8ef;
+    transform: scale(1.05);
+}
+
+.btn-new-style button .active {
+    border: #ea004b 1px solid;
+    color: #ea004b;
+    padding-bottom: 2px;
+    background-color: #ffe8ef;
+    transform: scale(2px);
+}
+
+.Button-hedear {
+    border-radius: 50px;
+    transition: 0.3s;
+}
+
+
+.Button-hedear:hover {
+    border-radius: 50px 50px;
+    background-color: #ffe8ef;
+}
+
+.search-bar {
+    position: sticky;
+    margin-top: -20px; 
+    top: 70px; 
+    z-index: 1000; 
+    max-width: 1410px;
+}
+
+
+
+

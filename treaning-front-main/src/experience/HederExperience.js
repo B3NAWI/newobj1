@@ -13,7 +13,11 @@ import { RiMailSendLine } from "react-icons/ri";
 import { LoadingBtn } from "../refreshPage/loading";
 import { useTranslation } from "react-i18next";
 import { IoMdMenu } from "react-icons/io";
-import { Dropdown, DropdownButton, NavDropdown } from "react-bootstrap";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import img1 from "../file/images.png"
+import img2 from "../file/666555.png"
+import { TbShoppingBag } from "react-icons/tb";
+
 
 function HederExperience() {
     const { t, i18n } = useTranslation();
@@ -127,7 +131,7 @@ function HederExperience() {
     }, [dataaForgot])
 
     return (<>
-        <nav id="MenuBig" style={{ backgroundColor: "white", width: "100%" }}>
+        <nav style={{ backgroundColor: "white", width: "100%" }}>
             {isMobile ?
                 <div className="App" style={{ width: "100%", position: "fixed", zIndex: "6" }}><div>
                     <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "flex-start", width: "100%", position: "fixed" }} >
@@ -157,28 +161,39 @@ function HederExperience() {
                 </div>
                 </div>
                 :
-                <div style={{ position: "fixed", width: "100%", top: "0", zIndex: "3", maxHeight: "35px", padding: "0", backgroundColor: "white", boxShadow: "0 0 8px #898989 ", display: "flex", justifyContent: 'space-between' }}>
-                    <div className="HederExperienceActive" style={{ display: "flex" }}>
-                        <div style={{ padding: " 2px 2%", backgroundColor: "rgb(25 135 84)", color: "white", height: '35px', fontSize: "21px", fontWeight: "500", width: "100px", textAlign: "center" }} >{t("Menu")}</div>
-                        <NavLink to={"/GetCategoryMarket"} className="custom-button" activeClassName="active-link" ><div>{t("Market")}</div></NavLink>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-
-                        <div style={{ margin: "3px 10px 0 10px" }}>
-                            <Button variant="outline-success" onClick={handleShowLogin} style={{ width: "95px", padding: '0', height: '30px', marginRight: "10px" }}>
-                                {/* <IoLogInOutline style={{ fontSize: "25px", padding: "0 0px 3px 0" }} />  */}
-                                {t("login")}
-                            </Button>
-                            <Button variant="outline-success" onClick={btnSignup} style={{ width: "95px", padding: '0', height: '30px', marginRight: "10px" }}>
-                                {t("signup")}
-                            </Button>
+                <div style={{ position: "fixed", width: "100%", top: "0", zIndex: "3", minHeight: "64px", maxHeight: "64px", padding: "7px 0", backgroundColor: "white", boxShadow: "0 0 8px #898989 ", display: "flex", justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{ width: "1440px", padding: "0 40px", display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div className="HederExperienceActive" style={{ display: "flex", alignItems: 'center' }}>
+                            {/* <div style={{ padding: " 2px 2%", backgroundColor: "rgb(25 135 84)", color: "white", height: '35px', fontSize: "21px", fontWeight: "500", width: "100px", textAlign: "center" }} >{t("Menu")}</div> */}
+                            <NavLink to={"/"} className="custom-button" activeClassName="active-link" ><img style={{maxHeight:"40px" , marginTop:"10px"}} src={img2}></img></NavLink>
                         </div>
-                        <div style={{ display: 'flex', margin: "0 20px" }}>
-                            <Form.Select style={{ width: "100px", padding: "0 20px 0 0 " }} onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
-                                {/* <option>en</option> */}
-                                <option value={"ar"}>العربية</option>
-                                <option value={"he"}>עִברִית</option>
-                            </Form.Select>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div style={{ margin: "3px 10px 0 10px" }}>
+                                <Button variant="outline-liht" onClick={handleShowLogin} className="btn-new-style">
+                                    {t("login")}
+                                </Button>
+                                <Button variant="outline-liht" className="btn-new-style" onClick={btnSignup} >
+                                    {t("signup")}
+                                </Button>
+                            </div>
+                            <div style={{ display: 'flex', margin: "0 20px" }}>
+                                <Form.Select style={{
+                                    paddingLeft: "40px",
+                                    paddingRight: "20px",
+                                    width: "80px",
+                                    height: "35px",
+                                    appearance: "none",
+                                    background: `url(${img1}) no-repeat 10px center`,
+                                    backgroundSize: "30px 30px, 100%",
+                                    backgroundColor: "#ffffff",
+                                    textAlign: "center"
+                                }} className="language-selector" onChange={(e) => BtnLanguge(e.target.value)} value={i18n.language}>
+                                    {/* <option>en</option> */}
+                                    <option value={"ar"}>AR</option>
+                                    <option value={"he"}>HE</option>
+                                </Form.Select>
+                            </div>
+                            <Button variant="outline-liht" className="Button-hedear" >{<TbShoppingBag style={{ fontSize: "25px", color: "#ea004b" }} />} </Button>
                         </div>
                     </div>
                 </div>
@@ -208,7 +223,7 @@ function HederExperience() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" style={{ width: "80px", padding: '0px 0 0 0', height: '35px' }} onClick={handleCloseLogin}> {t("Close")} </Button>
-                    <Button variant="success" style={{ width: "100px", padding: '2px 7px 0 0', height: '35px', marginRight: "10px" }} onClick={btnlog}>  {statuslogin} </Button>
+                    <Button variant="success" style={{ width: "100px", padding: '2px 7px 3px 0', height: '35px', marginRight: "10px" }} onClick={btnlog}>  {statuslogin} </Button>
                 </Modal.Footer>
             </Modal>
             <Modal show={showForgot} onHide={handleCloseForgot}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Loading } from '../../../refreshPage/loading';
 import { Button } from 'react-bootstrap';
@@ -30,6 +30,17 @@ const DetalisOrder = () => {
         nav("/cline/Articales/FinishMarket");
     };
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const isStageCompleted = (stage) => {
         const currentIndex = stagesArray.indexOf(i18n.language == "ar" ? Order?.status.ar : Order?.status.he);
         const stageIndex = stagesArray.indexOf(stage);
@@ -59,7 +70,7 @@ const DetalisOrder = () => {
 
     return (
         <div id="allPage">
-            <div id="Page" style={{ width: "60%", marginLeft: "20%", marginRight: "20%" }}>
+            <div id="Page" style={{ width:isMobile?"95%" :"60%", margin:isMobile? "0 2.5%":"0 20%" }}>
                 {Order ?
                     <div style={{ marginTop: "30px", border: "10px", width: "90%" }}>
                         <div style={{ display: "flex", justifyContent: "space-around", textAlign: "start", paddingBottom: "2%" }}>

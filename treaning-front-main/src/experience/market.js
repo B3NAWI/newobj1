@@ -8,11 +8,14 @@ import { MdAddShoppingCart } from "react-icons/md";
 import { useTranslation } from "react-i18next";
 import { MdPriceChange } from "react-icons/md";
 import { IoFilterSharp } from "react-icons/io5";
-import { MsgToast } from "../components/MsgComponent";
+import { ModalProduct, MsgToast } from "../components/MsgComponent";
 
 
 function Market() {
     const { t, i18n } = useTranslation();
+    const [showProduct, setShowProduct] = useState(false)
+
+
 
     let params = useParams()
     const cookie = new Cookies()
@@ -61,6 +64,17 @@ function Market() {
     }
     console.log(filterData)
 
+    const data = filterData?.map((Product) => ({
+        _id: Product._id,
+        title: i18n.language == "ar" ? Product.title.ar : Product.title.he,
+        name: i18n.language == "ar" ? Product.name.ar : Product.name.he,
+        information: i18n.language == "ar" ? Product.information.ar : Product.information.he,
+        price: Product.price,
+        file: Product.file,
+        number: Product.number
+    })) || [];
+    
+
     return (<>
         <div style={{ display: "flex", marginTop: "35px", backgroundColor: "rgb(235, 235, 235)", minHeight: "100vh" }}>
             <Nav className="NavDisktop" style={{ minHeight: "100vh", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
@@ -85,7 +99,7 @@ function Market() {
                     </Accordion.Item>
                 </Accordion>
             </Nav>
-            <div style={{ width:isMobile?"100%": "85%" , padding:isMobile?"0 2.5%" :"" }}>
+            <div style={{ width: isMobile ? "100%" : "85%", padding: isMobile ? "0 2.5%" : "" }}>
                 <div style={{ width: "96%", backgroundColor: "white", margin: "10px 2%", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: "5px 0 5px 0 rgb(219, 218, 218)", display: "flex", justifyContent: "center" }}>
                     {isMobile && <><button style={{ backgroundColor: "initial", border: "none" }} onClick={() => { setOpen(true) }}> <IoFilterSharp size={"30"} style={{ margin: "5px 5px 5px 0" }} /></button></>}
                     <div className="d-flex " style={{ width: "100%", justifyContent: "center" }}>
@@ -103,13 +117,13 @@ function Market() {
                 </div>
                 <div style={{ backgroundColor: "white", width: '96%', margin: "0 2% 1% 2%", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: " 5px 5px 5px 0 rgb(219, 218, 218)", minHeight: "85vh" }}>
                     <div id="PageUlProduct">
-                        {filterData && filterData.map((item) =>
+                        {data.map((item) =>
                             <div class="card" style={{ width: "170px", margin: "1%", border: "none", backgroundColor: "rgb(248, 248, 248)", borderRadius: "10px", maxHeight: "240px" }}>
-                                <Link to={`/GetArticaleid/${item._id}`} style={{ margin: "1%" }} >
+                                <Link onClick={() => { setShowProduct({ show: true, dataa: item ,role:"visitor"}) }} style={{ margin: "1%" }} >
                                     <img src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`} class="card-img-top" style={{ maxHeight: "300px" }} />
                                     <div class="card-body" style={{ textAlign: "center" }}>
                                         <h5 class="card-title" style={{ textAlign: "end" }}>{item.price} $</h5>
-                                        <p class="card-text">{i18n.language == "ar" ? item.title.ar : item.title.he}</p>
+                                        <p class="card-text">{item.title}</p>
                                     </div>
                                 </Link>
                                 {/* <div class="col-12" style={{ display: "flex", justifyContent: "center", marginTop: "auto" }}>
@@ -151,6 +165,7 @@ function Market() {
                     {/* <Button variant="outline-success" style={{ width: "100%", bottom: "0" }} onClick={"btnFinishMarket"}> asdsad</Button> */}
                 </div>
             </Offcanvas>
+            <ModalProduct show={showProduct.show} handleClose={() => setShowProduct(false)} dataa={showProduct.dataa} role={showProduct.role} />
             <ToastContainer >
                 <MsgToast setShow={setShow} body={t("You are not registered, please log in and shop immediately")} show={show} title={t("You are not registered")} type={"danger"} />
             </ToastContainer >

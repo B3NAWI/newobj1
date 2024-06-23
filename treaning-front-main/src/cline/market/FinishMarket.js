@@ -87,6 +87,17 @@ const FinishMarket = () => {
         setReceipt(selectedValue);
     };
 
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 500);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const btnAddAddress = async () => {
         await axios.post(`${process.env.REACT_APP_API_URL}/users/addaddress/${userId}/address`, dataAddressPost,
             {
@@ -137,8 +148,8 @@ const FinishMarket = () => {
 
 
     return (<>
-        <div style={{ display: "flex", marginTop: "35px", minHeight: "500px", backgroundColor: "rgb(235, 235, 235)", overflow: "hidden" }}>
-            <Nav style={{ minHeight: "500px", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
+        <div style={{ display: "flex", marginTop: "35px", minHeight: "100vh", backgroundColor: "rgb(235, 235, 235)", overflow: "hidden" }}>
+            <Nav className="NavDisktop" style={{ minHeight: "500px", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
                 <Accordion style={{ width: "15%", position: "fixed" }} alwaysOpen defaultActiveKey={['0', '1']}>
                     {/* <div style={{ width: "99%", fontSize: "25px", height: "40px", borderBottom: "1px solid ", textAlign: "center" }}>Filter</div> */}
                     <Accordion.Item eventKey="0" style={{ width: "99%" }} >
@@ -170,9 +181,9 @@ const FinishMarket = () => {
                     </div>
                 </Accordion>
             </Nav>
-            <div style={{ width: "85%" }}>
-                <div style={{ backgroundColor: "white", width: "96%", borderRadius: "10px", boxShadow: " 5px 5px 5px 0 rgb(219, 218, 218)", display: "flex", padding: "1%", margin: "2%" }}>
-                    <div style={{ width: "50%" }}>
+            <div style={{ width: isMobile ? "100%" : "85%" }}>
+                <div style={{ backgroundColor: "white", width: "96%", borderRadius: "10px", boxShadow: " 5px 5px 5px 0 rgb(219, 218, 218)", display: "flex", flexDirection: isMobile && "column", padding: "1%", margin: "2%" }}>
+                    <div style={{ width: isMobile ? "100%" : "50%" }}>
                         <div className="ms-auto fw-bold fs-5" style={{ textAlign: "center", marginBottom: "4px", borderBottom: "1px solid rgb(228, 228, 228)", paddingBottom: "2%" }}>
                             {t("Total")}{" "}
                             {cartItems.reduce((total, cartitem) => {
@@ -186,7 +197,7 @@ const FinishMarket = () => {
                             ))}
                         </Stack>
                     </div>
-                    <div style={{ width: "50%" }}>
+                    <div style={{ width: isMobile ? "100%" : "50%" }}>
                         <Tabs
                             defaultActiveKey="address"
                             id="uncontrolled-tab-example"
@@ -321,6 +332,12 @@ const FinishMarket = () => {
                                 </div>
                             </Tab>
                         </Tabs>
+                        {isMobile &&
+                            <div style={{ width: "100%" }}>
+
+                                saddsadsa
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
